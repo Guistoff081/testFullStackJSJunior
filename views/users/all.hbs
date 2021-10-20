@@ -1,0 +1,17 @@
+<h1>Usuários</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Senha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each users}}
+        <tr>
+            <td>{{email}}</td>
+            <td>{{password}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
