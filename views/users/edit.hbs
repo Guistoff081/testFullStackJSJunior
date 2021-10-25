@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <h1>Editar Usuário #{{user.id}}</h1>
+    <form class="form" action="/api/v1/users" method="put">
+        <div class="form-group mb-3">
+            <label for="user-email">Email: </label>
+            <input type="email" name="email" value="{{user.email}}" class="form-control" id="user-email" placeholder="E-mail">
+        </div>
+        <div class="form-group mb-3">
+            <label for="user-password">Senha: </label>
+            <input type="password" name="password" value="{{user.password}}" class="form-control" id="user-password" placeholder="Senha">
+        </div>
+        <button type="submit" class="btn btn-success mr-3">Criar</button>
+        <a type="button" class="btn btn-secondary" href="/api/v1/users/{{user.id}}">Voltar</a>
+    </form>
+</div>

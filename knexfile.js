@@ -5,17 +5,23 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'test_app',
+      host: 'localhost',
+      database: 'app_test',
       user:     'postgres',
-      password: '123456'
+      password: '123456',
+      port: '5432'
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
-    }
+      tableName: 'knex_migrations',
+      directory: `${__dirname}/db/migrations`,
+    },
+    seeds: {
+      directory: `${__dirname}/db/seeds`,
+    },
   },
 
   staging: {

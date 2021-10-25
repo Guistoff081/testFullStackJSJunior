@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <h1>Usuário #{{user.id}}</h1>
+    <div class="table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Senha</th>
+                    <th colspan="2">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{user.email}}</td>
+                    <td>{{user.password}}</td>
+                    <td><a href="/api/v1/users/{{user.id}}/edit">Editar</a></td>
+                    <td><a class="text-danger" href="/api/v1/users/{{user.id}}">Apagar</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a type="button" class="btn btn-primary" href="/api/v1/users/new">Novo Usuário</a>
+    <a type="button" class="btn btn-secondary" href="/api/v1/users">Voltar</a>
+</div>
