@@ -30,7 +30,8 @@ function getUserResponseHandler(id, res, viewName, next) {
       .where("id", id)
       .first()
       .then((user) => {
-        res.render(viewName, { user: user });
+        //res.render(viewName, { user: user });
+        res.json({user:user});
       })
       .catch(next);
   } else {
@@ -46,6 +47,7 @@ function setUserResponseHandler(req, res, callback) {
       password: req.body.password,
     };
     callback(user);
+    console.log(user);
   } else {
     res.status(422);
     res.render("error", { message: "Dados Invalidos" });
@@ -61,8 +63,8 @@ router.get("/", async function (req, res, next) {
       //res.json({users: users});
       //res.setHeader('Content-Type', 'application/json');
       //res.send(JSON.stringify({key:"value"}));
-      res.render("users/index", { users: users });
-      //res.send({users: users});
+      //res.render("users/index", { users: users });
+      res.send({users: users});
     })
     .catch(next);
 });
@@ -74,12 +76,15 @@ router.get("/new", function (req, res, next) {
 
 /* POST a new User */
 router.post("/", async function (req, res, next) {
-  await setUserResponseHandler(req, res, (user) => {
+  setUserResponseHandler(req, res, (user) => {
+    console.log(user);
     connection("users")
-      .insert(user, "id")
-      .then((ids) => {
-        const id = ids[0];
-        res.redirect(`/api/v1/users/${id}`);
+      .insert(user)
+      .then((user) => {
+        res.json(user);
+        //const id = ids[0];
+        //res.redirect(`/api/v1/users/${id}`);
+        //res.status(201).send({ user: user });
       })
       .catch(next);
   });
@@ -88,24 +93,26 @@ router.post("/", async function (req, res, next) {
 /* GET a user instance and render show */
 router.get("/:id", async function (req, res, next) {
   let id = req.params.id;
-  await getUserResponseHandler(id, res, "users/show", next);
+  getUserResponseHandler(id, res, "users/show", next);
 });
 
 /* GET a user instance and  render edit */
 router.get("/:id/edit", async function (req, res, next) {
   let id = req.params.id;
-  await getUserResponseHandler(id, res, "users/edit", next);
+  getUserResponseHandler(id, res, "users/edit", next);
 });
 
 /* GET a user instance and does update */
 router.put("/:id", async function (req, res, next) {
   let id = req.params.id;
-  await setUserResponseHandler(req, res, (user) => {
+  setUserResponseHandler(req, res, (user) => {
     connection("users")
-      .where("id", id)
-      .update(user, "id")
-      .then(() => {
-        res.redirect(`/api/v1/users/${id}`);
+      .update(user)
+      .where({ id })
+      .then((user) => {
+        conslole.log(res.send());
+        res.send();
+        //res.redirect(`/api/v1/users/${id}`);
       })
       .catch(next);
   });
@@ -119,7 +126,8 @@ router.delete("/:id", async function (req, res, next) {
       .where("id", id)
       .del()
       .then(() => {
-        res.redirect("/api/v1/users");
+        res.status(201).send();
+        //res.redirect("/api/v1/users");
       })
       .catch(next);
   } else {
@@ -134,7 +142,8 @@ router.delete("/", async function (req, res, next) {
     .del()
     .then(res.status(200))
     .then(() => {
-      res.redirect("/api/v1/users");
+      //res.redirect("/api/v1/users");
+      res.status(200).send()
     })
     .catch(next);
 });

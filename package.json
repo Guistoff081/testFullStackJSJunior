@@ -16,7 +16,9 @@
     "knex": "^0.95.11",
     "method-override": "^3.0.0",
     "morgan": "~1.9.1",
-    "pg": "^8.7.1"
+    "node": "^17.0.1",
+    "pg": "^8.7.1",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "husky": "^7.0.2",

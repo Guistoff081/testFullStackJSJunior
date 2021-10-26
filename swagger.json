@@ -1,0 +1,289 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api CRUD simples",
+        "description": "Uma API que realiza operações de crud",
+        "contact": {
+            "email": "guigolawliet13@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [{
+        "url": "https://virtserver.swaggerhub.com/Guistoff081/crudtestcontele/1.0.0",
+        "description": "SwaggerHub API Auto Mocking"
+    }, {
+        "url": "http://localhost:3000",
+        "description": "Endereço em development"
+    }],
+    "paths": {
+        "/api/v1/users": {
+            "get": {
+                "tags": [
+                    "consultas"
+                ],
+                "summary": "Faz requisição de uma lista de usuários cadastrados",
+                "description": "Mostra todos os registros de usuários cadastrados",
+                "operationId": "listAllUsers",
+                "responses": {
+                    "200": {
+                        "description": "Mostra os resultados de uma consulta á todos os usuários cadastrados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/users"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad input parameter"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "inserções"
+                ],
+                "summary": "Cadastra um novo usuário",
+                "description": "Adiciona umnovo usuário ao sistema",
+                "operationId": "addNewUser",
+                "requestBody": {
+                    "description": "Usuário a ser adicionado",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/users",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "email": "guigolawliet13@gmail.com",
+                                    "password": "V@!EWDFT0wmjshd123"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado"
+                    },
+                    "400": {
+                        "description": "invalid input, object invalid"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "exclusões"
+                ],
+                "summary": "Destroi todos os registros de usuários",
+                "description": "Realiza um delete para cada registro da tabela users",
+                "operationId": "destroyAllUsers",
+                "responses": {
+                    "200": {
+                        "description": "Retorna OK quando todos os usuários forem deletados"
+                    },
+                    "404": {
+                        "description": "Operação não completada"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/{id}": {
+            "get": {
+                "tags": [
+                    "consultas"
+                ],
+                "summary": "Faz requisição de um registro de usuário cadastrado através do id",
+                "description": "Mostra um usuário de acordo com o id pesquisado",
+                "operationId": "listSingleUser",
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "o id sequencial gerado pelo db",
+                    "required": true,
+                    "style": "simple",
+                    "explode": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Retorna status OK se o id for de um usuário válido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/users"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad input parameter"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "inserções"
+                ],
+                "summary": "Altera um registro de usuário cadastrado através do id",
+                "description": "Mostra um usuário de acordo com o id pesquisado",
+                "operationId": "ChangeAnUser",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "o id sequencial gerado pelo db",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "description": "o email do cadastro poderá ser alterado",
+                        "required": false,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "body",
+                        "description": "a senha do cadastro poderá ser alterada",
+                        "required": false,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna status OK se o update for efetuado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/users",
+                                        "properties": {
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "password": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "example": {
+                                            "email": "guigolawliet13@gmail.com",
+                                            "password": "V@!EWDFT0wmjshd123"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Inserção mal sucedida"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "exclusões"
+                ],
+                "summary": "Exclui um registro de usuário cadastrado através do id",
+                "description": "Destroi um usuário de acordo com o id pesquisado",
+                "operationId": "DestroyAnUser",
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "o id sequencial gerado pelo db",
+                    "required": true,
+                    "style": "simple",
+                    "explode": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Retorna status OK se a exclusão for realizada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/users"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Inserção mal sucedida"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "users": {
+                "required": [
+                    "created_at",
+                    "email",
+                    "id",
+                    "password",
+                    "updated_at"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "auto-incrementable",
+                        "example": "1"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "teste@teste.com.br"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2016-08-29T09:12:33.001Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2016-08-29T09:12:33.001Z"
+                    }
+                }
+            }
+        }
+    }
+}
