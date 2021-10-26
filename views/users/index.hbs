@@ -2,24 +2,27 @@
     <h1>Usuários</h1>
     <div class="table">
         <table>
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Senha</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each users}}
-            <tr>
-                <td>{{email}}</td>
-                <td>{{password}}</td>
-                <td><a href="/api/v1/users/{{id}}">Mostrar</a></td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Senha</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr>
+                    <td>{{email}}</td>
+                    <td>{{password}}</td>
+                    <td><a href="/api/v1/users/{{id}}">Mostrar</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
     </div>
+    
+    <form action="/api/v1/users?_method=DELETE" method="post">
     <a type="button" class="btn btn-primary" href="/api/v1/users/new">Novo Usuário</a>
-    <a type="button" class="btn btn-danger" href="/api/v1/users">Apagar Todos</a>
+        <td><button type="submit" class="btn btn-danger">Apagar Todos</a></td>
+    </form>
 </div>
