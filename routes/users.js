@@ -1,18 +1,6 @@
 /* Controlador das rotas de usuário */
 var express = require("express");
 var router = express.Router();
-const connection = require("../db/db_connection");
-
-/* Handler Functions */
-function validEmail(email) {
-  var emailPattern = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
-  return emailPattern.test(email);
-}
-
-function validPassword(password) {
-  var passwordPattern = /^(?=(?:.*?[A-Z]){1})(?=(?:.*?[0-9]){1})(?=(?:.*?[!@#$%*()_+^&}{:;?.]){1})(?!.*\s)[0-9a-zA-Z!@#$%;*(){}_+^&]*$/;
-  return passwordPattern.test(password);
-}
 
 function validateUser(user) {
   return (
